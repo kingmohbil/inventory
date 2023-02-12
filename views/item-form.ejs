@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../../css/forms.css" />
+    <link rel="stylesheet" href="../../css/categories-form.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -62,6 +63,12 @@
               <a class="nav-link" href="/forms/category">Add Category</a>
             </li>
           </ul>
+        </div>
+        <div class="category-number">
+          <img src="../images/items.png" alt="item pic" title="category" />
+          <a class="category-link" href="/categories">
+            <%= locals.no_of_items || 0 %> Items</a
+          >
         </div>
       </div>
     </nav>
@@ -129,7 +136,6 @@
               name="category"
               required
             >
-              <option value="Any" selected>Any</option>
               <!-- prettier-ignore -->
               <% if(locals.categories) { %>
               <% locals.categories.forEach(element => { %>
