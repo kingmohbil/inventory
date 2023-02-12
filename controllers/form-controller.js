@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const itemModel = require('../models/items-model');
 const categoryModel = require('../models/categories-model');
 
@@ -48,5 +49,32 @@ exports.addCategory = async (req, res) => {
     console.error(err.message);
   } finally {
     res.redirect('/');
+  }
+};
+
+exports.onItemFormLoad = async (req, res) => {
+  try {
+    if (mongoose.connection.readyState === 0)
+      throw new Error('the database is disconnected....');
+    const result = await categoryModel.find({}, 'name').orFail();
+    const itemsNum = await itemModel.estimatedDocumentCount({});
+    res.render('item-form', {
+      categories: result,
+      no_of_items: itemsNum,
+    });
+  } catch (e) {
+    console.log(e.message);
+    res.render('item-form');
+  }
+};
+
+exports.number_of_categories = async (req, res) => {
+  let result;
+  try {
+    result = await categoryModel.estimatedDocumentCount({});
+  } catch (e) {
+    console.error(e.message);
+  } finally {
+    res.render('category-form', { no_of_categories: result });
   }
 };

@@ -15,3 +15,25 @@ exports.onLoad = async (req, res) => {
     no_of_items: num_of_items,
   });
 };
+
+exports.loadCategories = async (req, res) => {
+  let results;
+  try {
+    results = await categoryModel.find({});
+  } catch (e) {
+    console.error(e.message);
+  } finally {
+    res.render('categories', { categories: results });
+  }
+};
+
+exports.deleteCategory = async (req, res) => {
+  try {
+    const result = await categoryModel.deleteOne({ _id: req.params });
+    console.log('item was deleted successfully...');
+    res.redirect('/');
+  } catch (e) {
+    console.error(e.message);
+    res.end();
+  }
+};
