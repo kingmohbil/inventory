@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.get('/', home_controller.onLoad);
 
-router.get('/categories', (req, res) => {
-  res.send('categories page not implemented yet');
-});
+router.get('/categories', home_controller.loadCategories);
+
+router.post('/categories/delete/:id', home_controller.deleteCategory);
 
 router.get('/items', (req, res) => {
   res.send('items page not implemented yet');
