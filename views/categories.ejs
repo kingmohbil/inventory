@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <title>Categories</title>
+    <link rel="icon" type="image/x-icon" href="../images/categories.png" />
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -26,7 +27,10 @@
     <link rel="stylesheet" href="../../css/categories.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav
+      class="navbar navbar-expand-lg bg-primary fixed-top"
+      data-bs-theme="dark"
+    >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Grocery Store</a>
         <button
@@ -76,7 +80,8 @@
       </div>
     </nav>
     <div class="content">
-      <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="left-side"></div>
+      <div class="row row-cols-1 row-cols-md-2 g-4" id="cards-container">
         <% if (locals.categories.length > 0 ) { %>
         <!-- prettier-ignore -->
         <% locals.categories.forEach( element => { %>
@@ -84,9 +89,13 @@
           <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="#" class="card-link"> <%= element.name %> </a>
+                <a href="/items/<%= element.id %> " class="card-link">
+                  <%= element.name %>
+                </a>
               </h5>
               <p class="card-text"><%= element.description %></p>
+            </div>
+            <div class="card-footer">
               <form
                 action="/categories/delete/<%= element._id %>"
                 method="POST"
