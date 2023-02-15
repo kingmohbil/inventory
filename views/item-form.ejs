@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="../../css/forms.css" />
     <link rel="stylesheet" href="../../css/categories-form.css" />
+    <link rel="icon" type="image/x-icon" href="../images/items.png" />
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -27,7 +28,10 @@
     ></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav
+      class="navbar navbar-expand-lg bg-primary fixed-top"
+      data-bs-theme="dark"
+    >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Grocery Store</a>
         <button
@@ -74,6 +78,14 @@
     </nav>
     <div class="content">
       <div class="content-overlay">
+        <div class="alerts-container">
+          <% if (locals.errors.length > 0) { %>
+          <!--prettier-ignore-->
+          <% locals.errors.forEach(error=>{ %>
+          <div class="alert alert-danger" role="alert"><%= error.msg %></div>
+          <!--prettier-ignore-->
+          <% })} %>
+        </div>
         <form action="/forms/item" method="POST">
           <div class="mb-3">
             <label for="item-name" class="form-label">* Name</label>
@@ -83,8 +95,9 @@
               placeholder="item's name...."
               id="item-name"
               name="name"
-              minlength="3"
+              minlength="1"
               maxlength="80"
+              value="<%= locals.name %>"
               required
             />
           </div>
@@ -99,8 +112,11 @@
               rows="3"
               minlength="10"
               maxlength="500"
+              placeholder="a short description"
               required
-            ></textarea>
+            >
+<%= locals.description %></textarea
+            >
           </div>
           <div class="mb-3">
             <label for="item-price" class="form-label">* Price</label>
@@ -111,7 +127,8 @@
               id="item-price"
               name="price"
               min="0"
-              step="1"
+              step="0.1"
+              value="<%= locals.price %>"
               required
             />
           </div>
@@ -125,6 +142,7 @@
               name="quantity"
               min="1"
               step="1"
+              value="<%= locals.quantity %>"
               required
             />
           </div>
@@ -134,11 +152,10 @@
               class="form-select"
               aria-label="Default select example"
               name="category"
-              required
             >
               <!-- prettier-ignore -->
               <% if(locals.categories) { %>
-              <% locals.categories.forEach(element => { %>
+            <% locals.categories.forEach(element => { %>
               <!-- prettier-ignore -->
               <option value=<%= element.name %> > <%= element.name %> </option>
               <% }) %> <% } %>
