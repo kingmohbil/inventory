@@ -8,6 +8,7 @@ const form_router = require('./routes/form-route'); // requring form routter tha
 const app = express(); // creating our express application
 // the connection string to connect to the database
 const connectionString = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 8080;
 mongoose.set('strictQuery', true);
 
 // serving our static files in the public directory
@@ -25,8 +26,8 @@ app.use('/', home_router);
 app.use('/forms', form_router);
 
 // server running and listnining on port 8080
-app.listen(8080, () => {
-  console.log('server listnining on port 8080...');
+app.listen(PORT, () => {
+  console.log(`server listnining on port ${PORT}...`);
 });
 
 // connecting to the database
