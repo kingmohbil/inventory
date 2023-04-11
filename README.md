@@ -2,7 +2,7 @@
 
 ![inventory-project](https://user-images.githubusercontent.com/96872857/227797200-fb2cfc73-a5cd-40e1-bb09-3699f6b75e2e.png)
 
-The inventory project is a project created using express as a backend library, ejs as templating language, mongodb as the database.
+The inventory project is a project created using express as a backend library, ejs as templating language, mongodb as the database, you can view the website <a href="https://inventory-production-5115.up.railway.app/">here</a>.
 
 
 ## key features
